@@ -1,0 +1,13 @@
+--- a/tokio/src/sync/oneshot.rs
++++ b/tokio/src/sync/oneshot.rs
+@@ -218,9 +218,9 @@
+ ///
+ /// [`Option`]: std::option::Option
+ /// [`Option::take`]: std::option::Option::take
+-#[derive(Debug)]
++#[derive(Debug, Clone)]
+ pub struct Sender<T> {
+     inner: Option<Arc<Inner<T>>>,
+     #[cfg(all(tokio_unstable, feature = "tracing"))]
+     resource_span: tracing::Span,
+ }
