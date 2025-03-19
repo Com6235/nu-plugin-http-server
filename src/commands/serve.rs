@@ -1,7 +1,7 @@
-use std::{io::{stdout, Write}, sync::Arc, vec};
+use std::{io::{stdout, Write}, vec};
 
 use nu_plugin::{PluginCommand, EvaluatedCall, EngineInterface};
-use nu_protocol::{ErrorLabel, Example, LabeledError, PipelineData, PipelineMetadata, Signature, Span, SyntaxShape, Type, Value};
+use nu_protocol::{ErrorLabel, Example, LabeledError, PipelineData, PipelineMetadata, Signature, SyntaxShape, Type, Value};
 use tokio::sync::oneshot::Sender;
 
 use crate::{router::{server::Server, Route}, HttpServerPlugin};
