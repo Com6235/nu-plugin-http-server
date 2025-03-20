@@ -1,6 +1,5 @@
 use commands::serve::HttpServeCommand;
 use nu_plugin::{serve_plugin, MsgPackSerializer, Plugin, PluginCommand};
-use router::Route;
 use tokio::runtime;
 
 mod commands;
@@ -8,7 +7,6 @@ mod router;
 
 pub struct HttpServerPlugin {
     async_runtime: runtime::Runtime,
-    routes: Vec<Route>
 }
 
 impl Plugin for HttpServerPlugin {
@@ -21,16 +19,17 @@ impl Plugin for HttpServerPlugin {
     }
 }
 
+impl HttpServerPlugin {
+    pub fn new() -> HttpServerPlugin {
+        let runtime = runtime::Builder::new_multi_thread()
+            .enable_all()
+            .build()
+            .unwrap();
+
+        HttpServerPlugin { async_runtime: runtime }
+    }
+}
+
 fn main() {
-    let runtime = runtime::Builder::new_multi_thread()
-        .enable_all()
-        .build()
-        .unwrap();
-
-    let plugin = HttpServerPlugin {
-        async_runtime: runtime,
-        routes: vec![]
-    };
-
-    serve_plugin(&plugin, MsgPackSerializer);
+    serve_plugin(&HttpServerPlugin::new(), MsgPackSerializer);
 }
