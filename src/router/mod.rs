@@ -2,10 +2,11 @@ use axum::{body::Body, http::Response as AResponse, response::IntoResponse, rout
 
 pub mod server;
 
+#[derive(Clone)]
 pub struct Route {
-    route: String,
+    pub route: String,
     data: Vec<u8>,
-    mime: String
+    pub mime: String
 }
 
 #[allow(unused)]
